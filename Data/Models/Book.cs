@@ -11,6 +11,6 @@ namespace LibraryApp.Data.Models
         public string Author { get; set; }
         public string Description { get; set; }
         public string Thumbnail { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -77,7 +77,7 @@ namespace LibraryApp
                     Description="We live in an age of unprecedented opportunity: with ambition, drive, and talent, you can rise to the top of your chosen profession, regardless of where you started out...",
                     Author= "Peter Ducker",
                     Thumbnail = "https://devyscope.com/linkedin-learning/payment-gateways/book-covers/managing-oneself.png",
-                    Price = "19.90"
+                    Price = 19.90M
                 },
                 new Book()
                 {
@@ -86,7 +86,7 @@ namespace LibraryApp
                     Description="Evolutionary Psychology: The New Science of the Mind, 5th edition provides students with the conceptual tools of evolutionary psychology, and applies them to empirical research...",
                     Author= "David Buss",
                     Thumbnail = "https://devyscope.com/linkedin-learning/payment-gateways/book-covers/evoluationary-psychology.png",
-                    Price = "29.90"
+                    Price = 29.90M
                 },
                 new Book()
                 {
@@ -95,7 +95,7 @@ namespace LibraryApp
                     Description="Millions of people around the world have improved their lives based on the teachings of Dale Carnegie. In How to Win Friends and Influence People, he offers practical advice...",
                     Author= "Dale Carnegie",
                     Thumbnail = "https://devyscope.com/linkedin-learning/payment-gateways/book-covers/win-friends-influence-people.png",
-                    Price = "32.49"
+                    Price = 32.49M
                 },
                 new Book()
                 {
@@ -104,7 +104,7 @@ namespace LibraryApp
                     Description = "Professor Dawkins articulates a gene’s eye view of evolution. A view giving center stage to these persistent units of information, and in which organisms can be seen as...",
                     Author = "Richard Dawkins",
                     Thumbnail = "https://devyscope.com/linkedin-learning/payment-gateways/book-covers/the-selfish-gene.png",
-                    Price = "17.89"
+                    Price = 17.89M
                 },
                 new Book()
                 {
@@ -113,7 +113,7 @@ namespace LibraryApp
                     Description = "Will and Ariel Durant have succeeded in distilling for the reader the accumulated store of knowledge and experience from their five decades of work on the eleven monumental...",
                     Author = "Will & Ariel Durant",
                     Thumbnail = "https://devyscope.com/linkedin-learning/payment-gateways/book-covers/the-lessons-of-history.png",
-                    Price = "32.00"
+                    Price = 32.00M
                 }
             };
 

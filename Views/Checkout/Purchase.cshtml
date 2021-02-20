@@ -14,6 +14,11 @@
                     <p class="card-text">@Model.Description</p>
                     <p class="card-text"><small class="text-muted">Author: @Model.Author</small></p>
                     <p class="card-text"><small class="text-muted">Price: @Model.Price</small></p>
+                    <p class="card-text">
+                        <small class="text-muted">CAD sample: 4012000033330729  </small>
+                        <a href=https://developers.braintreepayments.com/guides/credit-cards/testing-go-live/dotnet
+                           target="_blank">Credit card samples</a>
+                    </p>
                 </div>
                 <img style="width: 90%" class="card-img-bottom" src="@Model.Thumbnail" alt="Card image cap">
             </div>
@@ -22,6 +27,7 @@
                     <div id="bt-dropin"></div>
                 </div>
             </section>
+            @Html.HiddenFor(n => n.Nonce, new { @id = "nonce" })
             <hr />
             <button class="btn btn-success" type="submit"><span>Confirm payment - $@Model.Price</span></button>
         </form>
@@ -31,9 +37,25 @@
 <script src="https://js.braintreegateway.com/web/dropin/1.22.0/js/dropin.min.js"></script>
 <script>
     var client_token = "@ViewBag.ClientToken";
+    var form = document.querySelector('#payment-form');
 
     braintree.dropin.create({
         authorization: client_token,
         container: '#bt-dropin'
-    })
+    }, function (createErr, instance) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            instance.requestPaymentMethod(function (err, payload) {
+                if (err) {
+                    //handle error here
+                    return;
+                }
+                console.log("Payload.Nonce = ", payload.nonce);
+                alert(payload.nonce);
+                document.querySelector('#nonce').value = payload.nonce;
+                form.submit();
+            });
+        });
+    });
 </script>
