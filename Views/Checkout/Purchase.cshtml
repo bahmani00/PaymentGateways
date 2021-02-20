@@ -41,7 +41,10 @@
 
     braintree.dropin.create({
         authorization: client_token,
-        container: '#bt-dropin'
+        container: '#bt-dropin',
+        paypal: {
+            flow: 'vault'
+        }
     }, function (createErr, instance) {
         form.addEventListener('submit', function (event) {
             event.preventDefault();
@@ -52,7 +55,6 @@
                     return;
                 }
                 console.log("Payload.Nonce = ", payload.nonce);
-                alert(payload.nonce);
                 document.querySelector('#nonce').value = payload.nonce;
                 form.submit();
             });
