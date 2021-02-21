@@ -23,8 +23,8 @@ namespace LibraryApp
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddBraintreeGateway(Configuration);
+        {           
+            services.AddPaymentGateway(Configuration);
 
             services.AddTransient<IBookService, BookService>();
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase(new Guid().ToString()));
