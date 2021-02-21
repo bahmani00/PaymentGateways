@@ -1,5 +1,4 @@
-﻿using System;
-using LibraryApp.Data.Services;
+﻿using LibraryApp.Data.Services;
 using LibraryApp.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,20 +7,20 @@ namespace LibraryApp.Controllers
     public class CheckoutController : Controller
     {
         private readonly IBookService _bookService;
-        private readonly IBraintreeService _braintreeService;
+        private readonly IPaymentGatewayService _PaymentGatewayService;
 
-        public CheckoutController(IBookService bookService, IBraintreeService braintreeService)
+        public CheckoutController(IBookService bookService, IPaymentGatewayService paymentGatewayService)
         {
             _bookService = bookService;
-            _braintreeService = braintreeService;
+            _PaymentGatewayService = paymentGatewayService;
         }
 
-        public IActionResult Purchase(Guid id)
+        public IActionResult Purchase(string id)
         {
             var book = _bookService.GetById(id);
             if (book == null) return NotFound();
 
-            var data = new BookPurchaseVM
+            var product = new BookPurchaseVM
             {
                 Id = book.Id,
                 Description = book.Description,
@@ -32,18 +31,19 @@ namespace LibraryApp.Controllers
                 Nonce = "" //?
             };
 
-            ViewBag.ClientToken = _braintreeService.GenerateToken();
+            ViewBag.ClientToken = _PaymentGatewayService.GenerateToken(product);
 
-            return View(data);
+            return View(product);
         }
 
+        [HttpPost]
         public IActionResult Create(BookPurchaseVM model)
         {
             var book = _bookService.GetById(model.Id);
-            var result = _braintreeService
-                .SubmitForSettlement(book.Id, 1, book.Price, model.Nonce);
+            var result = _PaymentGatewayService
+                .SubmitForSettlement(book.Id, book.Title, 1, book.Price, model.Nonce);
 
-            if (result.IsSuccess())
+            if (result.IsSucceeded)
                 return View("Success");
 
             return View("Failure");
@@ -51,7 +51,7 @@ namespace LibraryApp.Controllers
 
         public IActionResult OurPlans()
         {
-            var plans = _braintreeService.GetAllPlans();
+            var plans = _PaymentGatewayService.GetAllPlans();
 
             return View(plans);
         }
@@ -59,12 +59,16 @@ namespace LibraryApp.Controllers
         public IActionResult SubscribeToPlan(string id)
         {
             //it should come from customer's card
-            var customerPaymentMethodToken = "MelodyB_d69s97r";
-            var result = _braintreeService.SubscribeTo(id, customerPaymentMethodToken);
-            if (result.IsSuccess())
+            var customerPaymentMethodToken = "cus_Iz9GA122j8Awgl";// "MelodyB_d69s97r";
+            
+            var result = _PaymentGatewayService.SubscribeTo(id, customerPaymentMethodToken);
+            if (result.IsSucceeded)
                 return View("Subscribed");
 
             return View("NotSubscribed");
         }
+
+        public IActionResult Success() => View();
+        public IActionResult Failure() => View();
     }
 }

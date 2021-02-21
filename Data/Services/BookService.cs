@@ -19,6 +19,12 @@ namespace LibraryApp.Data.Services
             return items;
         }
 
-        public Book GetById(Guid courseId) => _context.Books.FirstOrDefault(n => n.Id == courseId);
+        public Book GetById(string courseId) => _context.Books.FirstOrDefault(n => n.Id == courseId);
+    }
+
+    public interface IBookService
+    {
+        IEnumerable<Book> GetAll();
+        Book GetById(string courseId);
     }
 }

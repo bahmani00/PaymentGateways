@@ -1,6 +1,7 @@
 ﻿using Braintree;
-using System;
+using LibraryApp.Data.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LibraryApp.Data.Services
 {
@@ -13,12 +14,12 @@ namespace LibraryApp.Data.Services
             this.braintreeGateway = braintreeGateway;
         }
 
-        public string GenerateToken()
+        public string GenerateToken(ViewModels.BookPurchaseVM product)
         {
             return braintreeGateway.ClientToken.Generate();
         }
 
-        public Result<Transaction> SubmitForSettlement(Guid itemId, int userId, decimal price, string nonce)
+        public PurchaseResult SubmitForSettlement(string itemId, string itemName, int userId, decimal price, string nonce)
         {
             //var submitForSettlementRequest = new TransactionRequest {
             //    PurchaseOrderNumber = "12345",
@@ -52,22 +53,25 @@ namespace LibraryApp.Data.Services
                 }
             };
 
-            return braintreeGateway.Transaction.Sale(request);
+            return braintreeGateway.Transaction.Sale(request)
+                .ToPurchaseResult();
         }
 
-        public List<Plan> GetAllPlans()
+        public List<SubscriptionPlan> GetAllPlans()
         {
-            return braintreeGateway.Plan.All();
+            return braintreeGateway.Plan.All()
+                .Select(x => (SubscriptionPlan)x).ToList();
         }
 
-        public Result<Subscription> SubscribeTo(string id, string customerPaymentMethodToken)
+        public PurchaseResult SubscribeTo(string planId, string customerPaymentMethodToken)
         {
             var subscriptionRequest = new SubscriptionRequest() {
                 PaymentMethodToken = customerPaymentMethodToken,
-                PlanId = id
+                PlanId = planId
             };
 
-            return braintreeGateway.Subscription.Create(subscriptionRequest);
+            return braintreeGateway.Subscription.Create(subscriptionRequest)
+                .ToSubscription();
         }
     }
 }

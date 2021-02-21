@@ -15,6 +15,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Stripe.Net" Version="39.37.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\Data.cs" />
