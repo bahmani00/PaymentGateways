@@ -8,7 +8,8 @@ namespace LibraryApp.Data.Services
     {
         public static void AddPaymentGateway(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddBraintreeGateway(configuration);
+            //services.AddBraintreeGateway(configuration);
+            services.AddStripeGateway(configuration);
             services.AddScoped<IPaymentGatewayService, PaymentGatewayService>();
         }
 
@@ -42,6 +43,26 @@ namespace LibraryApp.Data.Services
             return env == "PRODUCTION" ? Braintree.Environment.PRODUCTION : Braintree.Environment.SANDBOX; 
         }
         #endregion Braintree
+
+        #region Stripe
+        public static void AddStripeGateway(this IServiceCollection services, IConfiguration configuration)
+        {
+            StripeConfiguration.ApiKey = configuration.GetValue<string>("StripeGateway:SecretKey");
+            services.AddSingleton<IPaymentGateway>(c => {
+
+                return new StripeService();
+            });
+
+        }
+        public static PurchaseResult ToPurchaseResult(this Charge charge)
+        {
+            return new PurchaseResult(charge.Status == "succeeded");
+        }
+        public static PurchaseResult ToSubscription(this Stripe.Subscription subscription)
+        {
+            return new PurchaseResult(subscription.Created != null);
+        }
+        #endregion Stripe
 
     }
 }

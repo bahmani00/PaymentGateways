@@ -1,0 +1,70 @@
+﻿@model LibraryApp.Data.ViewModels.BookPurchaseVM
+@*<script src="https://checkout.stripe.com/checkout.js"
+            class="stripe-button"
+            data-key="pk_test_51IN62FEAgNx42pWdCspqnqC4B4rCQYX296N9eqUtJZWsCppbMVfllFS83dKAMrh119Dug0iA1BacPGv0YQQKkCWv00Y7l8CsfV"
+            data-name="LibraryApp Payment"
+            data-description="@Model.Author - @Model.Title"
+            data-locale="en"
+            data-label="Confirm Payment - $@Model.Price">
+    </script>*@
+
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+    #bt-dropin {
+        padding: 10px;
+        border: 1px solid #ccc;
+        width: 40%;
+    }
+</style>
+
+<p class="card-text">
+    <small class="text-muted">CAD sample: 4000001240000000 </small>
+    <a href=https://stripe.com/docs/testing#cards
+       target="_blank">Credit card samples</a>
+</p>
+<section style="display:none">
+    <label for="card-element">Card</label>
+    <div id="bt-dropin"></div>
+</section>
+@Html.HiddenFor(n => n.Nonce, new { @id = "nonce" })
+<hr />
+<button class="btn btn-success" type="submit"><span>Confirm payment - $@Model.Price</span></button>
+
+<script>
+    (() => {
+        // setup DOM
+        const form = document.querySelector('#payment-form');
+        const cardWrapper = document.querySelector('#bt-dropin');
+
+        // setup Stripe.js and Elements
+        const stripe = new Stripe('pk_test_51IN62FEAgNx42pWdCspqnqC4B4rCQYX296N9eqUtJZWsCppbMVfllFS83dKAMrh119Dug0iA1BacPGv0YQQKkCWv00Y7l8CsfV');
+        //const elements = stripe.elements();
+
+        //// setup card Element
+        //const cardElement = elements.create('card', {});
+        //cardElement.mount(cardWrapper);
+
+        // handle form submit
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            stripe.redirectToCheckout({
+                // Make the id field from the Checkout Session creation API response
+                // available to this file, so you can provide it as argument here
+                // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+                sessionId: '@ViewBag.ClientToken'
+            }).then(function (result) {
+                // If `redirectToCheckout` fails due to a browser or network
+                // error, display the localized error message to your customer
+                // using `result.error.message`.
+                console.log(result);
+                if (result.error && result.error.message) {
+                    console.log(result.error.message);
+                } else {
+                    //document.querySelector('#nonce').value = payload.paymentMethod.id;
+                    //form.submit();
+
+                }
+            });
+        });
+    })();
+</script>

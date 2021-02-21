@@ -59,7 +59,7 @@ namespace LibraryApp.Controllers
         public IActionResult SubscribeToPlan(string id)
         {
             //it should come from customer's card
-            var customerPaymentMethodToken = "MelodyB_d69s97r";
+            var customerPaymentMethodToken = "cus_Iz9GA122j8Awgl";// "MelodyB_d69s97r";
             
             var result = _PaymentGatewayService.SubscribeTo(id, customerPaymentMethodToken);
             if (result.IsSucceeded)
@@ -67,5 +67,8 @@ namespace LibraryApp.Controllers
 
             return View("NotSubscribed");
         }
+
+        public IActionResult Success() => View();
+        public IActionResult Failure() => View();
     }
 }
