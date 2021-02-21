@@ -21,7 +21,7 @@ namespace LibraryApp.Controllers
         }
 
         // GET: Books/Details/5
-        public IActionResult Details(Guid id)
+        public IActionResult Details(string id)
         {
             var book = _service.GetById(id);
             if (book == null)
