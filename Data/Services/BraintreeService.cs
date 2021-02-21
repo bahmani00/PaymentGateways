@@ -1,5 +1,6 @@
 ﻿using Braintree;
 using System;
+using System.Collections.Generic;
 
 namespace LibraryApp.Data.Services
 {
@@ -52,6 +53,21 @@ namespace LibraryApp.Data.Services
             };
 
             return braintreeGateway.Transaction.Sale(request);
+        }
+
+        public List<Plan> GetAllPlans()
+        {
+            return braintreeGateway.Plan.All();
+        }
+
+        public Result<Subscription> SubscribeTo(string id, string customerPaymentMethodToken)
+        {
+            var subscriptionRequest = new SubscriptionRequest() {
+                PaymentMethodToken = customerPaymentMethodToken,
+                PlanId = id
+            };
+
+            return braintreeGateway.Subscription.Create(subscriptionRequest);
         }
     }
 }

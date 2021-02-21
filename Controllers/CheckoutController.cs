@@ -48,5 +48,23 @@ namespace LibraryApp.Controllers
 
             return View("Failure");
         }
+
+        public IActionResult OurPlans()
+        {
+            var plans = _braintreeService.GetAllPlans();
+
+            return View(plans);
+        }
+
+        public IActionResult SubscribeToPlan(string id)
+        {
+            //it should come from customer's card
+            var customerPaymentMethodToken = "MelodyB_d69s97r";
+            var result = _braintreeService.SubscribeTo(id, customerPaymentMethodToken);
+            if (result.IsSuccess())
+                return View("Subscribed");
+
+            return View("NotSubscribed");
+        }
     }
 }
