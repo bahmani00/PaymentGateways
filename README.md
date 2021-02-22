@@ -6,6 +6,7 @@ https://www.linkedin.com/learning/asp-dot-net-core-payment-gateways
 * Create a single payment
 * Subscribe to a payment plan
 * Retrive and display Stripe's:
+   * Products 
    * Transactions
    * Balance
    * Charges
