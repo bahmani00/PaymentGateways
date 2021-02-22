@@ -1,4 +1,5 @@
 ﻿using LibraryApp.Data.Models;
+using LibraryApp.Data.ViewModels;
 using System.Collections.Generic;
 
 namespace LibraryApp.Data.Services
@@ -30,6 +31,11 @@ namespace LibraryApp.Data.Services
         public PurchaseResult SubscribeTo(string planId, string customerPaymentMethodToken)
         {
             return _PaymentGateway.SubscribeTo(planId, customerPaymentMethodToken);
+        }
+
+        public DashboardVM GetTotalBalance()
+        {
+            return _PaymentGateway.GetTotalBalance();
         }
     }
 }

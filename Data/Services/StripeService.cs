@@ -1,4 +1,5 @@
 ﻿using LibraryApp.Data.Models;
+using LibraryApp.Data.ViewModels;
 using Stripe;
 using Stripe.Checkout;
 using System.Collections.Generic;
@@ -76,6 +77,20 @@ namespace LibraryApp.Data.Services
             var service = new SubscriptionService();
             return service.Create(subscriptionOptions)
                 .ToSubscription();
+        }        
+
+        public DashboardVM GetTotalBalance()
+        {
+            var response = new DashboardVM();
+
+            var balanceService = new BalanceService();
+            response.Balance = (PaymentGateways.Data.Models.Balance)balanceService.Get();
+
+            var transactionService = new BalanceTransactionService();
+            response.Transactions = transactionService.List()
+                    .Select(x => (PaymentGateways.Data.Models.BalanceTransaction)x).ToList();
+
+            return response;        
         }
     }
 }
