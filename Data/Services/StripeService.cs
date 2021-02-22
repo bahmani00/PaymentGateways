@@ -90,6 +90,10 @@ namespace LibraryApp.Data.Services
             response.Transactions = transactionService.List()
                     .Select(x => (PaymentGateways.Data.Models.BalanceTransaction)x).ToList();
 
+            var customerService = new CustomerService();
+            response.Customers = customerService.List()
+                    .Select(x => (PaymentGateways.Data.Models.Customer)x).ToList();
+
             return response;        
         }
     }
