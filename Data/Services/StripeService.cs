@@ -105,6 +105,10 @@ namespace LibraryApp.Data.Services
             var refundService = new RefundService();
             response.Refunds = refundService.List()
                     .Select(x => (PaymentGateways.Data.Models.Refund)x).ToList();
+            
+            var productService = new ProductService();
+            response.Products = productService.List()
+                    .Select(x => (PaymentGateways.Data.Models.Product)x).ToList();
 
             return response;        
         }
