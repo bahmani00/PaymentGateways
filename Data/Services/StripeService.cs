@@ -79,9 +79,9 @@ namespace LibraryApp.Data.Services
                 .ToSubscription();
         }        
 
-        public DashboardVM GetTotalBalance()
+        public TransactionBundle GetAllTransactions()
         {
-            var response = new DashboardVM();
+            var response = new TransactionBundle();
 
             var balanceService = new BalanceService();
             response.Balance = (PaymentGateways.Data.Models.Balance)balanceService.Get();

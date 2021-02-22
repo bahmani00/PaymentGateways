@@ -75,7 +75,7 @@ namespace LibraryApp.Data.Services
                 .ToSubscription();
         }
 
-        public DashboardVM GetTotalBalance()
+        public TransactionBundle GetAllTransactions()
         {
             return null;// braintreeGateway.GetTotalBalance();
         }

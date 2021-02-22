@@ -33,9 +33,9 @@ namespace LibraryApp.Data.Services
             return _PaymentGateway.SubscribeTo(planId, customerPaymentMethodToken);
         }
 
-        public DashboardVM GetTotalBalance()
+        public TransactionBundle GetAllTransactions()
         {
-            return _PaymentGateway.GetTotalBalance();
+            return _PaymentGateway.GetAllTransactions();
         }
     }
 }
