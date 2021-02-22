@@ -14,7 +14,7 @@ namespace LibraryApp.Controllers
         
         public IActionResult Index()
         {
-            var response = _PaymentGatewayService.GetTotalBalance();
+            var response = _PaymentGatewayService.GetAllTransactions();
 
             return View(response);
         }

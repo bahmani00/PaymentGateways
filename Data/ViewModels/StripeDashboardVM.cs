@@ -3,7 +3,7 @@ using PaymentGateways.Data.Models;
 
 namespace LibraryApp.Data.ViewModels
 {
-    public class DashboardVM
+    public class TransactionBundle
     {
         public Balance Balance { get; set; }
         public List<BalanceTransaction> Transactions { get; set; }

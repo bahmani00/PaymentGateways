@@ -14,7 +14,7 @@ namespace LibraryApp.Data.Services
 
         PurchaseResult SubscribeTo(string planId, string customerPaymentMethodToken);
         
-        DashboardVM GetTotalBalance();
+        TransactionBundle GetAllTransactions();
     }
 
     public interface IBraintreeService : IPaymentGateway
