@@ -11,5 +11,8 @@ namespace LibraryApp.Data.ViewModels
         public List<Customer> Customers { get; internal set; }
         
         public List<Charge> Charges { get; internal set; }
+        
+        public List<Dispute> Disputes { get; internal set; }
+        public List<Refund> Refunds { get; internal set; }
     }
 }

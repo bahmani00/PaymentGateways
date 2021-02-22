@@ -97,6 +97,14 @@ namespace LibraryApp.Data.Services
             var chargeService = new ChargeService();
             response.Charges = chargeService.List()
                     .Select(x => (PaymentGateways.Data.Models.Charge)x).ToList();
+            
+            var disputeService = new DisputeService();
+            response.Disputes = disputeService.List()
+                    .Select(x => (PaymentGateways.Data.Models.Dispute)x).ToList();
+
+            var refundService = new RefundService();
+            response.Refunds = refundService.List()
+                    .Select(x => (PaymentGateways.Data.Models.Refund)x).ToList();
 
             return response;        
         }
