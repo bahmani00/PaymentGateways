@@ -1,5 +1,5 @@
 ﻿using LibraryApp.Data.Models;
-using System;
+using LibraryApp.Data.ViewModels;
 using System.Collections.Generic;
 
 namespace LibraryApp.Data.Services
@@ -13,6 +13,8 @@ namespace LibraryApp.Data.Services
         List<SubscriptionPlan> GetAllPlans();
 
         PurchaseResult SubscribeTo(string planId, string customerPaymentMethodToken);
+        
+        DashboardVM GetTotalBalance();
     }
 
     public interface IBraintreeService : IPaymentGateway

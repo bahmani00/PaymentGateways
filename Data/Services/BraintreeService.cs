@@ -1,5 +1,6 @@
 ﻿using Braintree;
 using LibraryApp.Data.Models;
+using LibraryApp.Data.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -72,6 +73,11 @@ namespace LibraryApp.Data.Services
 
             return braintreeGateway.Subscription.Create(subscriptionRequest)
                 .ToSubscription();
+        }
+
+        public DashboardVM GetTotalBalance()
+        {
+            return null;// braintreeGateway.GetTotalBalance();
         }
     }
 }
