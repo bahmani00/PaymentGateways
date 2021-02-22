@@ -94,6 +94,10 @@ namespace LibraryApp.Data.Services
             response.Customers = customerService.List()
                     .Select(x => (PaymentGateways.Data.Models.Customer)x).ToList();
 
+            var chargeService = new ChargeService();
+            response.Charges = chargeService.List()
+                    .Select(x => (PaymentGateways.Data.Models.Charge)x).ToList();
+
             return response;        
         }
     }
