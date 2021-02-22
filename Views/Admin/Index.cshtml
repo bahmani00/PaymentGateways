@@ -139,3 +139,28 @@
         }
     </tbody>
 </table>
+
+<hr />
+<h2>Products</h2>
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Created</th>
+            <th scope="col">Description</th>
+            <th scope="col">Unit Label</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+        <tr>
+            <td>@product.Name</td>
+            <td>@product.Created</td>
+            <td>@product.Description</td>
+            <td>@product.UnitLabel</td>
+        </tr>
+        }
+    </tbody>
+</table>
